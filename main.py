@@ -5,6 +5,8 @@ Website :   https://engineerdanny.me
 Date    :   February, 2022
 """
 
+## forked by tomikoski
+
 import sys
 import requests
 from bs4 import BeautifulSoup
@@ -12,7 +14,8 @@ from colored import fg, bg, attr
 import re
 import progressbar
 import itertools
-
+from random_user_agent.user_agent import UserAgent
+from random_user_agent.params import SoftwareName, OperatingSystem
 
 base_url = 'https://apksfull.com'
 version_url = 'https://apksfull.com/version/'
@@ -21,7 +24,7 @@ dl_url = 'https://apksfull.com/dl/'
 g_play_url = 'https://play.google.com/store/apps/details?id='
 
 headers = {
-    'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1',
+    'User-Agent': 'placeholder',
     'Accept': 'application/json, text/javascript, */*; q=0.01',
     'Accept-Language': 'en-US,en;q=0.5',
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -100,6 +103,17 @@ def main():
 
     # there will be a list of apps that show on the website
     soup = BeautifulSoup(search_res.content, 'html.parser')
+
+    software_names = [SoftwareName.CHROME.value]
+    operating_systems = [OperatingSystem.WINDOWS.value, OperatingSystem.LINUX.value]   
+    user_agent_rotator = UserAgent(software_names=software_names, operating_systems=operating_systems, limit=100)
+    # Get list of user agents.
+    user_agents = user_agent_rotator.get_user_agents()
+    # Get Random User Agent String.
+    user_agent = user_agent_rotator.get_random_user_agent()
+
+    headers['User-Agent'] = user_agent
+    print("Today's lucky User-Agent is: " + user_agent)
 
     # # find the first class with the class name "search-dl"
     # children = soup.findChildren('a', class_='col col-6 list')
