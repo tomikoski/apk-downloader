@@ -104,7 +104,7 @@ def main():
     # there will be a list of apps that show on the website
     soup = BeautifulSoup(search_res.content, 'html.parser')
 
-    software_names = [SoftwareName.CHROME.value]
+    software_names = [SoftwareName.CHROME.value, SoftwareName.FIREFOX.value, SoftwareName.EDGE.value, SoftwareName.OPERA.value]
     operating_systems = [OperatingSystem.WINDOWS.value, OperatingSystem.LINUX.value]   
     user_agent_rotator = UserAgent(software_names=software_names, operating_systems=operating_systems, limit=100)
     # Get list of user agents.
@@ -113,7 +113,8 @@ def main():
     user_agent = user_agent_rotator.get_random_user_agent()
 
     headers['User-Agent'] = user_agent
-    print("Today's lucky User-Agent is: " + user_agent)
+    print("Today's lucky winnder for 'User-Agent' is: %s%s%s ..." %
+          (fg('light_blue'), user_agent, attr('reset')))
 
     # # find the first class with the class name "search-dl"
     # children = soup.findChildren('a', class_='col col-6 list')
