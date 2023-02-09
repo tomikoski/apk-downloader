@@ -157,6 +157,13 @@ def main():
        # establish a connection to the first link
        sub_dl_res = requests.get(sub_dl_links[0],
                                  headers=headers, allow_redirects=True)
+       
+       # captcha check
+       captcha = re.findall("captcha", sub_dl_res.text)
+       if(len(captcha) > 1):
+           print("%sPossible captcha detected, try again later... :/%s" % (fg('light_red'), attr('reset')))
+           #sys.exit(1)
+
        if sub_dl_res.status_code != 200:
            show_internet_error()
    
