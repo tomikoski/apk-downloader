@@ -40,7 +40,7 @@ def show_internet_error():
 
 def show_arg_error():
     print(fg('red') + '\n[!] ERROR: ' + attr('reset') +
-          'Invalid Format\nShould be of the format `python main.py {{PACKAGE_ID}}`')
+          'Invalid Format\nShould be of the format `python main.py {{PACKAGE_ID,...}}`')
     exit()
 
 
