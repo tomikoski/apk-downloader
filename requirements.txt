@@ -2,3 +2,4 @@ requests
 beautifulsoup4
 colored
 progressbar2
+random-user-agent
